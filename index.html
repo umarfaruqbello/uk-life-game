@@ -11,7 +11,7 @@ header{background:#1e293b;padding:14px 12px;position:sticky;top:0;z-index:10;bor
 h1{font-size:20px;text-align:center;color:#f8fafc}h1 span{color:#38bdf8}
 .bars{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .bar{background:#334155;border-radius:20px;height:18px;overflow:hidden;position:relative}
-.bar-fill{height:100%;transition:width .5s}
+.bar-fill{height:100%;transition:width.5s}
 .bar-label{position:absolute;left:8px;top:0;font-size:11px;line-height:18px;font-weight:700}
 #moneyBox{text-align:center;margin-top:10px;font-size:22px;font-weight:900;color:#22c55e}
 #levelBox{text-align:center;font-size:12px;color:#94a3b8}
@@ -34,4 +34,41 @@ h1{font-size:20px;text-align:center;color:#f8fafc}h1 span{color:#38bdf8}
 <div class="bar"><div id="hBar" class="bar-fill" style="width:80%;background:#22c55e"></div><div class="bar-label">❤️ Health</div></div>
 <div class="bar"><div id="hapBar" class="bar-fill" style="width:70%;background:#eab308"></div><div class="bar-label">😊 Happy</div></div>
 <div class="bar"><div id="kBar" class="bar-fill" style="width:40%;background:#38bdf8"></div><div class="bar-label">🧠 Knowledge</div></div>
-<div class="bar"><div id="vBar" class="bar-fill" style="width:20%;background:#a78bfa"></div><div class="bar-label">🛂 Visa: Student</div
+<div class="bar"><div id="vBar" class="bar-fill" style="width:20%;background:#a78bfa"></div><div class="bar-label">🛂 Visa: Student</div></div>
+</div>
+<div id="moneyBox">£ 1,500</div>
+<div id="levelBox">Age: 22 | Job: Cleaner | House: Shared Room | Car: None</div>
+</header>
+<div class="container">
+<div class="card"><h2>🎲 Life Actions</h2><div class="row">
+<button class="btn" onclick="work()">💼 Work Shift</button>
+<button class="btn btn-green" onclick="study()">📚 Study</button>
+<button class="btn btn-orange" onclick="sleep()">😴 Sleep + Health</button>
+<button class="btn btn-purple" onclick="randomEvent()">🎁 Random UK Event</button>
+</div></div>
+<div class="card"><h2>💼 UK Jobs</h2><div id="jobs"></div></div>
+<div class="card"><h2>🏠 Houses</h2><div id="houses"></div></div>
+<div class="card"><h2>🚗 Cars</h2><div id="cars"></div></div>
+<div class="card"><h2>📜 Life Log</h2><div id="log" class="log">Welcome to UK! You arrived with £1500 Student Visa. Work hard to get ILR & British Passport!<br></div></div>
+</div>
+<script>
+let money=1500,health=80,happy=70,knowledge=40,visa=20,age=22,jobIdx=0,houseIdx=0,carIdx=0;
+const jobs=[{name:"Cleaner",pay:1200,need:0},{name:"Delivery Rider",pay:1800,need:20},{name:"Care Worker",pay:2500,need:35},{name:"IT Support",pay:3800,need:50},{name:"Nurse",pay:5200,need:65},{name:"Software Engineer",pay:8000,need:80},{name:"Doctor",pay:12000,need:90}];
+const houses=[{name:"Shared Room - Peckham",cost:0,rent:600},{name:"Studio - Croydon",cost:8000,rent:900},{name:"1-Bed - Stratford",cost:25000,rent:1300},{name:"2-Bed - Canary Wharf",cost:75000,rent:2000},{name:"Mansion - Chelsea",cost:250000,rent:0}];
+const cars=[{name:"Bus / Tube (Oyster)",cost:0},{name:"Used Bicycle",cost:300},{name:"Used Vauxhall Corsa",cost:4000},{name:"Tesla Model 3",cost:35000},{name:"Range Rover",cost:80000}];
+const events=[{text:"❄️ UK Cold! You paid £200 for heating.",m:-200,he:-5,ha:-5},{text:"🎉 You found overtime! +£400",m:400,ha:5},{text:"🏥 NHS appointment free! Health +10",he:10},{text:"🚇 TfL fine! Oyster forgot to tap. -£80",m:-80,ha:-10},{text:"📚 College scholarship! Knowledge +15",k:15,ha:10},{text:"💷 HMRC Tax bill! -£350",m:-350},{text:"👮 UKVI approved! Visa +10!",v:10,ha:15},{text:"🍔 Nando's cheat day! Happy +15, Health -5",ha:15,he:-5}];
+function update(){document.getElementById('moneyBox').innerText='£ '+money.toLocaleString();document.getElementById('hBar').style.width=health+'%';document.getElementById('hapBar').style.width=happy+'%';document.getElementById('kBar').style.width=knowledge+'%';document.getElementById('vBar').style.width=visa+'%';let vn=visa<30?'Student':visa<60?'Skilled Worker':visa<85?'ILR':'British Citizen';document.querySelector('#vBar +.bar-label').innerText='🛂 Visa: '+vn;document.getElementById('levelBox').innerText=`Age: ${age.toFixed(1)} | Job: ${jobs[jobIdx].name} | House: ${houses[houseIdx].name}`;render();}
+function log(t){document.getElementById('log').innerHTML=t+'<br>'+document.getElementById('log').innerHTML;}
+function clamp(){health=Math.max(0,Math.min(100,health));happy=Math.max(0,Math.min(100,happy));knowledge=Math.max(0,Math.min(100,knowledge));visa=Math.max(0,Math.min(100,visa));}
+function work(){let rent=houses[houseIdx].rent;let inc=jobs[jobIdx].pay;money+=inc-rent;health-=3;happy-=2;age+=0.1;log(`💼 Worked ${jobs[jobIdx].name}: +£${inc} Rent -£${rent}`);clamp();update();if(visa>=100&&houseIdx>=3&&jobIdx>=5){alert('🏆 YOU WIN UK LIFE V2!')}}
+function study(){if(money<100){log('❌ Need £100 to study');return;}money-=100;knowledge+=7;happy-=3;log('📚 Studied! Knowledge +7');clamp();update();}
+function sleep(){health+=12;happy+=5;age+=0.1;log('😴 Slept well Health +12');clamp();update();}
+function randomEvent(){let e=events[Math.floor(Math.random()*events.length)];money+=e.m||0;health+=e.he||0;happy+=e.ha||0;knowledge+=e.k||0;visa+=e.v||0;log(e.text);clamp();update();}
+function render(){document.getElementById('jobs').innerHTML=jobs.map((j,i)=>`<div class="shop-item"><div><b>${j.name}</b><div class="small">£${j.pay}/m Need ${j.need}% ${i===jobIdx?'✅':''}</div></div><button class="btn" ${knowledge<j.need?'disabled':''} onclick="buyJob(${i})">Get Job</button></div>`).join('');document.getElementById('houses').innerHTML=houses.map((h,i)=>`<div class="shop-item"><div><b>${h.name}</b><div class="small">${h.cost===0?'Free':`£${h.cost}`} Rent £${h.rent} ${i===houseIdx?'✅':''}</div></div><button class="btn" ${money<h.cost||i===houseIdx?'disabled':''} onclick="buyHouse(${i})">Buy</button></div>`).join('');document.getElementById('cars').innerHTML=cars.map((c,i)=>`<div class="shop-item"><div><b>${c.name}</b><div class="small">£${c.cost} ${i===carIdx?'✅':''}</div></div><button class="btn" ${money<c.cost||i===carIdx?'disabled':''} onclick="buyCar(${i})">Buy</button></div>`).join('');}
+function buyJob(i){if(knowledge>=jobs[i].need){jobIdx=i;log(`🎉 New Job: ${jobs[i].name}!`);update();}}
+function buyHouse(i){if(money>=houses[i].cost){money-=houses[i].cost;houseIdx=i;happy+=10;log(`🏠 Moved to ${houses[i].name}!`);clamp();update();}}
+function buyCar(i){if(money>=cars[i].cost){money-=cars[i].cost;carIdx=i;happy+=10;log(`🚗 Got ${cars[i].name}!`);clamp();update();}}
+update();
+</script>
+</body>
+</html>
