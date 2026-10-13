@@ -2,8 +2,36 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UK LIFE - Like Lagos Life</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>UK LIFE V2 - Like Lagos Life</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
-body{background:#0f172
+body{background:#0f172a;color:#e2e8f0;min-height:100vh}
+header{background:#1e293b;padding:14px 12px;position:sticky;top:0;z-index:10;border-bottom:2px solid #334155}
+h1{font-size:20px;text-align:center;color:#f8fafc}h1 span{color:#38bdf8}
+.bars{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.bar{background:#334155;border-radius:20px;height:18px;overflow:hidden;position:relative}
+.bar-fill{height:100%;transition:width .5s}
+.bar-label{position:absolute;left:8px;top:0;font-size:11px;line-height:18px;font-weight:700}
+#moneyBox{text-align:center;margin-top:10px;font-size:22px;font-weight:900;color:#22c55e}
+#levelBox{text-align:center;font-size:12px;color:#94a3b8}
+.container{padding:12px;display:grid;gap:12px;max-width:600px;margin:0 auto}
+.card{background:#1e293b;border-radius:14px;padding:12px;border:1px solid #334155}
+.card h2{font-size:15px;margin-bottom:8px;color:#38bdf8}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{background:#0ea5e9;color:#fff;border:none;padding:10px 12px;border-radius:10px;font-weight:700;font-size:13px;flex:1 1 120px;cursor:pointer}
+.btn:disabled{opacity:.4}
+.btn-green{background:#16a34a}.btn-orange{background:#ea580c}.btn-purple{background:#7c3aed}
+.log{max-height:140px;overflow:auto;font-size:12px;background:#020617;padding:8px;border-radius:8px;line-height:1.5}
+.shop-item{display:flex;justify-content:space-between;align-items:center;background:#0f172a;padding:8px;border-radius:8px;margin:6px 0}
+.small{font-size:11px;color:#94a3b8}
+</style>
+</head>
+<body>
+<header>
+<h1>🇬🇧 UK LIFE <span>V2</span> - Like Lagos Life</h1>
+<div class="bars">
+<div class="bar"><div id="hBar" class="bar-fill" style="width:80%;background:#22c55e"></div><div class="bar-label">❤️ Health</div></div>
+<div class="bar"><div id="hapBar" class="bar-fill" style="width:70%;background:#eab308"></div><div class="bar-label">😊 Happy</div></div>
+<div class="bar"><div id="kBar" class="bar-fill" style="width:40%;background:#38bdf8"></div><div class="bar-label">🧠 Knowledge</div></div>
+<div class="bar"><div id="vBar" class="bar-fill" style="width:20%;background:#a78bfa"></div><div class="bar-label">🛂 Visa: Student</div
