@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UK LIFE 🇬🇧</title>
+<style>
+body{background:#0a1931;color:#fff;font-family:Arial;padding:15px;text-align:center}
+.card{background:#fff;color:#111;border-radius:16px;padding:16px;margin:12px 0}
+.btn{width:100%;background:#cc0000;color:#fff;border:0;padding:14px;border-radius:10px;font-size:16px;margin:6px 0;font-weight:bold}
+.btn2{background:#1a4d8f}.btn3{background:#0a7a3a}
+</style>
+</head>
+<body>
+<h1>🇬🇧 UK LIFE</h1>
+<p id="city">📍 London</p>
+<div class="card">
+<h2>💷 £<span id="money">100</span></h2>
+<p>Job: <span id="job">Cleaner £12/h</span></p>
+<p>Energy: <span id="energy">100%</span></p>
+</div>
+<div class="card">
+<button class="btn" onclick="work()">💼 WORK +£12</button>
+<button class="btn btn2" onclick="buyHouse()">🏠 Buy Flat £500</button>
+<button class="btn btn2" onclick="buyCar()">🚗 Buy Car £800</button>
+<button class="btn btn3" onclick="buyBiz()">🍟 Shop £1500</button>
+<button class="btn btn3" onclick="moveCity()">🚆 Move City</button>
+<p id="log" style="margin-top:10px">Welcome to UK! Work to reach £1M</p>
+</div>
+<script>
+let m=parseInt(localStorage.getItem('ukm'))||100,wage=12,ci=0,energy=100,cities=['London','Manchester','Birmingham','Liverpool','Leeds'];
+function upd(){document.getElementById('money').innerText=m;document.getElementById('energy').innerText=energy+'%';localStorage.setItem('ukm',m);if(m>=1000000)alert('YOU WON! UK MILLIONAIRE!')}
+function work(){if(energy<10){alert('Tired! Move city');return;}m+=wage;energy-=10;document.getElementById('log').innerText='Worked +£'+wage;upd();}
+function buyHouse(){if(m>=500){m-=500;wage+=5;document.getElementById('log').innerText='Flat bought! +£5/work';document.getElementById('job').innerText='Landlord £'+wage+'/h';upd();}else alert('Need £500');}
+function buyCar(){if(m>=800){m-=800;energy=100;wage+=3;document.getElementById('log').innerText='Car bought! Energy full';upd();}else alert('Need £800');}
+function buyBiz(){if(m>=1500){m-=1500;wage+=20;document.getElementById('log').innerText='Shop opened! +£20/work';document.getElementById('job').innerText='Business Owner £'+wage+'/h';upd();}else alert('Need £1500');}
+function moveCity(){ci=(ci+1)%cities.length;energy=100;document.getElementById('city').innerText='📍 '+cities[ci];document.getElementById('log').innerText='Moved to '+cities[ci];upd();}
+upd();
+</script>
+</body>
+</html>
