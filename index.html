@@ -1,1 +1,81 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UK LIFE V8.1</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}body{background:#081a33;color:#fff;min-height:100vh;display:flex;flex-direction:column}.top{background:#fff;color:#111;border-radius:28px;margin:8px 10px;padding:12px;display:flex;justify-content:space-between;font-weight:900}.scene{flex:1;margin:0 10px;background:radial-gradient(#1e3a66,#081a33);border-radius:20px;display:flex;align-items:center;justify-content:center;perspective:900px;min-height:340px;position:relative}.cube{width:180px;height:180px;position:relative;transform-style:preserve-3d;transition:.7s}.face{position:absolute;width:180px;height:180px;border:1px solid #fff3;display:flex;align-items:center;justify-content:center;flex-direction:column;font-weight:900}.front{transform:translateZ(90px);background:#3d5a80}.back{transform:rotateY(180deg) translateZ(90px);background:#6b8cae}.right{transform:rotateY(90deg) translateZ(90px);background:#a8c3d9;color:#111}.left{transform:rotateY(-90deg) translateZ(90px);background:#e6eef5;color:#111}.arrow{position:absolute;top:50%;background:#fff;color:#111;border:0;width:40px;height:40px;border-radius:50%;font-weight:900;z-index:5}.al{left:10px}.ar{right:10px}.bar{background:#fff;margin:8px 10px;border-radius:14px;padding:10px;display:flex;gap:6px}.b{flex:1;background:#4caf50;color:#fff;border:0;padding:12px;border-radius:10px;font-weight:900}.nav{background:#fff;border-radius:20px 20px 0 0;display:flex;justify-content:space-around;padding:10px 0}.n{flex:1;background:none;border:0;font-size:11px;font-weight:900;color:#777}.m{position:fixed;inset:0;background:#000a;display:none;align-items:flex-end;justify-content:center;z-index:99}.m.show{display:flex}.s{width:100%;max-width:440px;max-height:90vh;background:#f2f2f2;color:#111;border-radius:28px 28px 0 0;padding:14px;overflow:auto}.btn{background:#111;color:#fff;border:0;padding:8px 12px;border-radius:8px;font-weight:800}.fly{position:fixed;left:50%;top:60%;background:#16a34a;color:#fff;padding:10px 18px;border-radius:20px;font-weight:900;z-index:200;animation:f 1s forwards}@keyframes f{to{transform:translate(-50%,-150%);opacity:0}}</style></head><body><div class="top"><span id="c">7:39 AM</span><span id="loc">Peckham</span><span id="mt">£1500</span></div><div class="scene" id="sc"><div class="cube" id="cb"><div class="face front">🛋️<br>Lounge</div><div class="face right">🛏️<br>Bedroom</div><div class="face back">🍳<br>Kitchen</div><div class="face left">🚿<br>Bath</div></div><button class="arrow al" onclick="ro(-1)">‹</button><button class="arrow ar" onclick="ro(1)">›</button></div><div class="bar"><button class="b" onclick="wk()">💷 WORK +£<span id="er">600</span></button><button class="b" style="background:#ff9800" onclick="om()">🗺️ MAP</button><button class="b" style="background:#2196f3" onclick="op()">📱 PHONE</button></div><div class="nav"><button class="n">🏠 Home</button><button class="n" onclick="om()">🗺️ Map</button><button class="n" onclick="op()">📱 Phone</button><button class="n" onclick="dl()">💎 Daily</button></div><div class="m" id="mm"><div class="s"><div style="display:flex;justify-content:space-between"><b>UK MAP</b><button class="btn" onclick="cm()">X</button></div><div id="ll"></div></div></div><div class="m" id="pm"><div class="s"><div style="display:flex;justify-content:space-between"><b>Phone - Lagos Life Style</b><button class="btn" onclick="cp()">X</button></div><div id="pn"></div></div></div><script>var m=1500,sk=20,ji=0,hi=0,ci=-1,curL=0,ang=0,curR=0;var J=[["Cleaner",1200,0],["Rider",1800,20],["Care",2500,35],["IT",3800,50],["Nurse",5200,65],["Engineer",8000,80],["Doctor",12000,90]];var H=[["Shared Peckham",0,600],["Studio Croydon",8000,900],["Stratford",25000,1300],["Canary",75000,2000],["Chelsea",250000,0]];var C=[["Corsa",3000],["Golf",12000],["BMW",28000],["Tesla",55000],["Range Rover",120000]];var L=[["Peckham",0],["Croydon",5],["Stratford",10],["Canary",15],["Chelsea",20]];function ro(d){ang+=d*90;curR=(curR+d+4)%4;document.getElementById("cb").style.transform="rotateY("+ang+"deg)"}function om(){var s="";for(var i=0;i<L.length;i++){s+='<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #ddd"><div><b>'+L[i][0]+' £'+L[i][1]+'</b></div><button class="btn" onclick="tr('+i+')">Go</button></div>'}document.getElementById("ll").innerHTML=s;document.getElementById("mm").classList.add("show")}function cm(){document.getElementById("mm").classList.remove("show")}function op(){var s='<b>Jobs Skill '+sk+'%</b><br>';for(var i=0;i<J.length;i++){s+='<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #ddd"><div><b>'+J[i][0]+' £'+J[i][1]+'</b></div><button class="btn" onclick="tj('+i+')">Take</button></div>'}s+='<br><b>Houses</b><br>';for(var i=0;i<H.length;i++){s+='<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #ddd"><div><b>'+H[i][0]+' £'+H[i][1]+'</b></div><button class="btn" onclick="bh('+i+')">Buy</button></div>'}s+='<br><b>Cars</b><br>';for(var i=0;i<C.length;i++){s+='<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #ddd"><div><b>'+C[i][0]+' £'+C[i][1]+'</b></div><button class="btn" onclick="bc('+i+')">Buy</button></div>'}s+='<br><div style="background:#fff;padding:10px;border-radius:12px">Study £100 +7% Skill<br><button class="btn" style="margin-top:6px" onclick="st()">Study</button></div><br><div style="background:#111;color:#fff;padding:10px;border-radius:12px">Bank £'+m+'<br><button class="btn" style="background:#fff;color:#111;margin-top:6px" onclick="dl()">Daily +£30</button></div>';document.getElementById("pn").innerHTML=s;document.getElementById("pm").classList.add("show")}function cp(){document.getElementById("pm").classList.remove("show")}function tr(i){if(m<L[i][1]){alert("Need £"+L[i][1]);return}m-=L[i][1];curL=i;document.getElementById("loc").innerText=L[i][0];cm();up();fly("-£"+L[i][1])}function tj(i){if(sk>=J[i][2]){ji=i;up();op();fly("Job: "+J[i][0])}}function bh(i){if(m>=H[i][1]){m-=H[i][1];hi=i;up();op();fly("House bought")}}function bc(i){if(m>=C[i][1]){m-=C[i][1];ci=i;up();op();fly(C[i][0])}}function wk(){var e=J[ji][1]-H[hi][2];if(e<100)e=100;m+=e;up();fly("+£"+e)}function st(){if(m<100)return;m-=100;sk=Math.min(100,sk+7);up();op();fly("+7% Skill")}function dl(){m+=30;up();fly("+£30")}function fly(t){var d=document.createElement("div");d.className="fly";d.innerText=t;document.body.appendChild(d);setTimeout(function(){d.remove()},1000)}function up(){document.getElementById("mt").innerText="£"+m;document.getElementById("er").innerText=J[ji][1]-H[hi][2];localStorage.setItem("uk81",JSON.stringify({m:m,sk:sk,ji:ji,hi:hi,ci:ci,curL:curL}))}try{var s=JSON.parse(localStorage.getItem("uk81")||"null");if(s){m=s.m||1500;sk=s.sk||20;ji=s.ji||0;hi=s.hi||0;ci=s.ci||-1;curL=s.curL||0;if(L[curL])document.getElementById("loc").innerText=L[curL][0]}}catch(e){}setInterval(function(){document.getElementById("c").innerText=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"})},1000);up();var sc=document.getElementById("sc"),sx=0;sc.addEventListener("touchstart",function(e){sx=e.touches[0].clientX});sc.addEventListener("touchend",function(e){var dx=e.changedTouches[0].clientX-sx;if(dx>40)ro(-1);if(dx<-40)ro(1)});</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UK LIFE V10 - Goslife House</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#7cb36a;height:100vh;overflow:hidden}
+#top{display:flex;gap:8px;padding:10px;position:absolute;top:0;left:0;right:0;z-index:10}
+.pill{background:#fff;border-radius:20px;padding:10px 16px;font-weight:800;box-shadow:0 3px 10px rgba(0,0,0,.2);font-size:13px}
+#money{flex:1;text-align:center}
+#houseArea{position:absolute;top:56px;bottom:72px;left:0;right:0;display:grid;place-items:center}
+#houseBox{width:96vw;max-width:520px;background:#000;border:3px solid #000;border-radius:18px;height:78vh;overflow:hidden;position:relative}
+#houseImg{width:100%;height:100%;object-fit:cover}
+#stats{position:absolute;top:8px;left:8px;right:8px;background:#ffffffe6;border-radius:12px;padding:8px 10px;display:flex;gap:10px;font-size:11px;font-weight:700;z-index:6}
+#bottom{position:absolute;bottom:0;left:0;right:0;background:#fff;display:flex;gap:6px;padding:10px;overflow-x:auto}
+#bottom button{flex:1;min-width:62px;padding:12px 5px;border:none;border-radius:12px;background:#111;color:#fff;font-weight:800;font-size:11px}
+#modal{position:absolute;inset:0;background:#0008;display:none;place-items:center;z-index:30}
+#modal.open{display:grid}
+#box{background:#fff;border-radius:20px;padding:18px;width:92%;max-width:400px;max-height:82vh;overflow:auto}
+.job{border:1px solid #ddd;padding:10px;border-radius:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+.job button{background:#00c853;color:#fff;border:none;padding:8px 12px;border-radius:20px;font-weight:800}
+#catalogueBtn{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:#00c853;color:#fff;border:none;border-radius:24px;padding:14px 26px;font-weight:900;z-index:7;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+#char{position:absolute;width:16px;height:24px;background:orange;border-radius:8px;border:2px solid #fff;left:20%;top:68%;z-index:8;transition:1s}
+</style>
+</head>
+<body>
+<div id="top">
+<div class="pill" onclick="openM('build')">Buy mode</div>
+<div class="pill" id="money">₦51,903,015</div>
+<div class="pill">↻</div>
+<div class="pill" onclick="location.reload()">✕</div>
+</div>
+
+<div id="houseArea">
+<div id="houseBox">
+<img id="houseImg" src="house.jpg">
+<div id="stats"><span>Job: <b id="jobT">Barista</b></span><span>Skill: <b id="skillT">10%</b></span><span>Bank: ₦<b id="bankT">0</b></span></div>
+<div id="char"></div>
+<button id="catalogueBtn" onclick="openM('build')">⊞ Catalogue</button>
+</div>
+</div>
+
+<div id="bottom">
+<button onclick="work()">💼 WORK</button>
+<button onclick="openM('jobs')">Jobs</button>
+<button onclick="openM('bank')">Bank</button>
+<button onclick="openM('houses')">Houses</button>
+<button onclick="openM('cars')">Cars</button>
+<button onclick="openM('map')">Tube</button>
+<button onclick="openM('social')">Social</button>
+</div>
+
+<div id="modal"><div id="box"></div></div>
+
+<script>
+let s=JSON.parse(localStorage.getItem('ukv10')||'{"m":51903015,"job":"Barista","pay":5000,"skill":10,"bank":0,"car":"None","biz":"None"}');
+function render(){
+ document.getElementById('money').innerText='₦'+s.m.toLocaleString();
+ document.getElementById('jobT').innerText=s.job;
+ document.getElementById('skillT').innerText=s.skill+'%';
+ document.getElementById('bankT').innerText=s.bank.toLocaleString();
+ localStorage.setItem('ukv10',JSON.stringify(s));
+}
+function work(){s.m+=s.pay;if(s.biz!='None')s.m+=50000;document.getElementById('char').style.left=Math.random()*60+15+'%';render();}
+function openM(type){
+ const box=document.getElementById('box');let h='';
+ if(type=='jobs'){h='<h3>Jobs</h3><button onclick="s.skill+=7;s.m-=10000;render()" style="width:100%;margin:8px 0;padding:12px;background:#222;color:#fff;border:none;border-radius:12px">📚 Study ₦10k +7%</button>';const jobs=[{n:'Barista',p:5000,sk:0},{n:'Driver',p:15000,sk:20},{n:'Software Dev',p:150000,sk:50},{n:'Doctor',p:500000,sk:80},{n:'CEO',p:1500000,sk:95}];jobs.forEach(j=>{h+=`<div class="job"><div>${j.n}<br><small>₦${j.p}/work | ${j.sk}%</small></div><button onclick="if(s.skill>=${j.sk}){s.job='${j.n}';s.pay=${j.p};render();}">Take</button></div>`});}
+ if(type=='houses'){h='<h3>Houses</h3>';[{n:'Bedsit',p:0},{n:'Mushin',p:500000},{n:'Lekki Flat',p:5000000},{n:'Banana Island',p:25000000},{n:'Chelsea UK',p:50000000}].forEach(x=>{h+=`<div class="job"><div>${x.n}<br>₦${x.p.toLocaleString()}</div><button onclick="if(s.m>=${x.p}){s.m-=${x.p};render()}">Buy</button></div>`});}
+ if(type=='cars'){h='<h3>Cars</h3>';[{n:'Keke',p:300000},{n:'Toyota',p:3000000},{n:'Range Rover',p:12000000}].forEach(x=>{h+=`<div class="job"><div>${x.n}<br>₦${x.p.toLocaleString()}</div><button onclick="if(s.m>=${x.p}){s.m-=${x.p};render()}">Buy</button></div>`});}
+ if(type=='bank'){h=`<h3>Bank 5% interest</h3><p>₦${s.bank.toLocaleString()}</p><input id="dep" type="number" placeholder="Amount" style="width:100%;padding:12px;margin:10px 0;border-radius:12px;border:1px solid #ccc"><button onclick="let v=+document.getElementById('dep').value;if(s.m>=v){s.m-=v;s.bank+=v;render();}" style="width:48%;padding:12px;background:#00c853;color:#fff;border:none;border-radius:12px">Deposit</button><button onclick="let v=+document.getElementById('dep').value;if(s.bank>=v){s.bank-=v;s.m+=v;render();}" style="width:48%;padding:12px;background:#222;color:#fff;border:none;border-radius:12px">Withdraw</button><button onclick="s.bank=Math.floor(s.bank*1.05);render()" style="width:100%;margin-top:10px;padding:12px;background:gold;border:none;border-radius:12px;font-weight:800">Collect Interest</button>`}
+ if(type=='map'){h='<h3>Transport</h3><div class="job"><div>Oshodi</div><button onclick="if(s.m>=500){s.m-=500;render()}">₦500</button></div><div class="job"><div>Lekki</div><button onclick="if(s.m>=1000){s.m-=1000;render()}">₦1000</button></div><div class="job"><div>Banana Island</div><button onclick="if(s.m>=2000){s.m-=2000;render()}">₦2000</button></div>'}
+ if(type=='social'){h='<h3>Social + Business</h3><div class="job"><div>Shop Business ₦5M → ₦50k/WORK</div><button onclick="if(s.m>=5000000){s.m-=5000000;s.biz=\'Shop\';render();}">Buy</button></div><div class="job"><div>Club ₦20M → ₦200k/WORK</div><button onclick="if(s.m>=20000000){s.m-=20000000;s.biz=\'Club\';s.pay+=200000;render();}">Buy</button></div>'}
+ if(type=='build'){h='<h3>Catalogue - Buy Mode</h3><p>Like your screenshot</p>';[{n:'Bed Upgrade',p:150000},{n:'Sofa Set',p:250000},{n:'TV 55',p:180000},{n:'Washing Machine',p:120000},{n:'Fridge',p:200000}].forEach(f=>{h+=`<div class="job"><div>${f.n}<br>₦${f.p.toLocaleString()}</div><button onclick="if(s.m>=${f.p}){s.m-=${f.p};render();alert('Placed!')}">Buy</button></div>`});}
+ h+='<br><button onclick="closeM()" style="width:100%;padding:14px;background:#111;color:#fff;border:none;border-radius:12px">Close</button>';box.innerHTML=h;document.getElementById('modal').classList.add('open');
+}
+function closeM(){document.getElementById('modal').classList.remove('open')}
+render();
+</script>
+</body>
+</html>
