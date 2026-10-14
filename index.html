@@ -2,77 +2,167 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>UK LIFE V10 - Goslife House</title>
+<title>UK LIFE - Peckham to Mayfair (Original)</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#7cb36a;height:100vh;overflow:hidden}
-#top{display:flex;gap:8px;padding:10px;position:absolute;top:0;left:0;right:0;z-index:10}
-.pill{background:#fff;border-radius:20px;padding:10px 16px;font-weight:800;box-shadow:0 3px 10px rgba(0,0,0,.2);font-size:13px}
-#money{flex:1;text-align:center}
-#houseArea{position:absolute;top:56px;bottom:72px;left:0;right:0;display:grid;place-items:center}
-#houseBox{width:96vw;max-width:520px;background:#000;border:3px solid #000;border-radius:18px;height:78vh;overflow:hidden;position:relative}
-#houseImg{width:100%;height:100%;object-fit:cover}
-#stats{position:absolute;top:8px;left:8px;right:8px;background:#ffffffe6;border-radius:12px;padding:8px 10px;display:flex;gap:10px;font-size:11px;font-weight:700;z-index:6}
-#bottom{position:absolute;bottom:0;left:0;right:0;background:#fff;display:flex;gap:6px;padding:10px;overflow-x:auto}
-#bottom button{flex:1;min-width:62px;padding:12px 5px;border:none;border-radius:12px;background:#111;color:#fff;font-weight:800;font-size:11px}
-#modal{position:absolute;inset:0;background:#0008;display:none;place-items:center;z-index:30}
+body{background:#2c3e50;height:100vh;overflow:hidden;color:#fff}
+.rain{position:absolute;inset:0;background:linear-gradient(transparent, rgba(255,255,255,.1));pointer-events:none;animation:rain 1s linear infinite}
+@keyframes rain{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+#top{background:linear-gradient(#0d1b2a,#1b263b);padding:10px;display:flex;gap:8px;position:relative;z-index:10}
+.pill{background:#fff;color:#111;border-radius:16px;padding:8px 12px;font-weight:800;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+#money{flex:1;text-align:center;background:gold}
+#main{position:absolute;top:52px;bottom:70px;left:0;right:0;display:flex;flex-direction:column;align-items:center;overflow:auto;padding:10px}
+#houseCard{width:96%;max-width:480px;background:#fff;color:#111;border-radius:20px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.5);position:relative}
+#houseCard img{width:100%;height:220px;object-fit:cover}
+#houseCard.info{padding:14px}
+#statusGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.stat{background:#f1f3f6;border-radius:12px;padding:10px;font-size:11px;font-weight:700}
+.stat b{font-size:14px;display:block}
+#actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+#actions button{padding:14px;border:none;border-radius:14px;font-weight:800;color:#fff}
+.work{background:#00c853}.study{background:#2962ff}.bills{background:#ff6d00}.oyster{background:#d50000}
+#bottom{position:absolute;bottom:0;left:0;right:0;background:#111;display:flex;gap:6px;padding:10px;overflow-x:auto;z-index:10}
+#bottom button{flex:1;min-width:60px;padding:12px 4px;border:none;border-radius:12px;background:#222;color:#fff;font-weight:800;font-size:10px}
+#modal{position:absolute;inset:0;background:#000a;display:none;place-items:center;z-index:20}
 #modal.open{display:grid}
-#box{background:#fff;border-radius:20px;padding:18px;width:92%;max-width:400px;max-height:82vh;overflow:auto}
-.job{border:1px solid #ddd;padding:10px;border-radius:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
-.job button{background:#00c853;color:#fff;border:none;padding:8px 12px;border-radius:20px;font-weight:800}
-#catalogueBtn{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:#00c853;color:#fff;border:none;border-radius:24px;padding:14px 26px;font-weight:900;z-index:7;box-shadow:0 6px 18px rgba(0,0,0,.35)}
-#char{position:absolute;width:16px;height:24px;background:orange;border-radius:8px;border:2px solid #fff;left:20%;top:68%;z-index:8;transition:1s}
+#box{background:#fff;color:#111;border-radius:20px;padding:18px;width:92%;max-width:380px;max-height:80vh;overflow:auto}
+.item{border:1px solid #ddd;padding:10px;border-radius:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+.item button{background:#111;color:#fff;border:none;padding:8px 12px;border-radius:20px;font-weight:800}
+.bus{position:absolute;top:20px;left:-200px;font-size:30px;animation:bus 15s linear infinite;z-index:5}
+@keyframes bus{0%{left:-200px}100%{left:110%}}
 </style>
 </head>
 <body>
+<div class="rain"></div>
+<div class="bus">🚌</div>
+
 <div id="top">
-<div class="pill" onclick="openM('build')">Buy mode</div>
-<div class="pill" id="money">₦51,903,015</div>
-<div class="pill">↻</div>
-<div class="pill" onclick="location.reload()">✕</div>
+<div class="pill">🇬🇧 UK LIFE</div>
+<div class="pill" id="money">£500</div>
+<div class="pill" id="weather">🌧️ Rainy</div>
+<div class="pill" id="credit">Credit: 400</div>
 </div>
 
-<div id="houseArea">
-<div id="houseBox">
-<img id="houseImg" src="house.jpg">
-<div id="stats"><span>Job: <b id="jobT">Barista</b></span><span>Skill: <b id="skillT">10%</b></span><span>Bank: ₦<b id="bankT">0</b></span></div>
-<div id="char"></div>
-<button id="catalogueBtn" onclick="openM('build')">⊞ Catalogue</button>
+<div id="main">
+<div id="houseCard">
+<img src="https://i.ibb.co/placeholder-uk-house.jpg" id="houseImg" onerror="this.style.background='#c0392b';this.style.height='140px'">
+<div class="info">
+<h3 id="houseName">Shared Room - Peckham</h3>
+<p style="font-size:11px;color:#666">Zone 2 • Cold • Landlord: Mr. Okonkwo</p>
+<div id="statusGrid">
+<div class="stat">Visa Days<b id="visa">60 days</b></div>
+<div class="stat">Happiness<b id="happy">60%</b></div>
+<div class="stat">Energy Bill<b id="energy">£0</b></div>
+<div class="stat">Council Tax<b id="council">£0</b></div>
+</div>
+<div id="actions">
+<button class="work" onclick="work()">💼 WORK SHIFT</button>
+<button class="study" onclick="study()">📚 STUDY / NVQ</button>
+<button class="bills" onclick="payBills()">🏠 PAY BILLS</button>
+<button class="oyster" onclick="travel()">🚇 TUBE £3.20</button>
+</div>
+</div>
+</div>
+
+<div style="width:96%;max-width:480px;background:#ffffffcc;color:#111;border-radius:16px;padding:12px;margin-top:10px;font-size:12px">
+<b>🇬🇧 UK Story:</b> You landed in Peckham with £500. Survive UK cost of living! Pay energy, council tax, renew BRP, build credit score from 400 to 999, move from shared room to Chelsea townhouse. Real UK life!
+<br><br>
+<b>Events:</b> <span id="event">Tube strike tomorrow! Bills rising 10%.</span>
 </div>
 </div>
 
 <div id="bottom">
-<button onclick="work()">💼 WORK</button>
 <button onclick="openM('jobs')">Jobs</button>
+<button onclick="openM('homes')">Homes</button>
+<button onclick="openM('shop')">Fish & Chips</button>
+<button onclick="openM('pub')">Pub</button>
 <button onclick="openM('bank')">Bank</button>
-<button onclick="openM('houses')">Houses</button>
-<button onclick="openM('cars')">Cars</button>
-<button onclick="openM('map')">Tube</button>
-<button onclick="openM('social')">Social</button>
+<button onclick="openM('brp')">BRP/Visa</button>
 </div>
 
-<div id="modal"><div id="box"></div></div>
+<div id="modal" onclick="if(event.target==this)closeM()"><div id="box"></div></div>
 
 <script>
-let s=JSON.parse(localStorage.getItem('ukv10')||'{"m":51903015,"job":"Barista","pay":5000,"skill":10,"bank":0,"car":"None","biz":"None"}');
+let s=JSON.parse(localStorage.getItem('uklife_original')||='{"m":500,"job":"Cleaner","pay":40,"skill":5,"credit":400,"house":"Shared Room - Peckham","rent":400,"energy":120,"council":80,"visa":60,"happy":60}');
+let weather=['🌧️ Rainy','☁️ Cloudy','🌤️ Sunny','❄️ Cold'];
+let wIdx=0;
 function render(){
- document.getElementById('money').innerText='₦'+s.m.toLocaleString();
- document.getElementById('jobT').innerText=s.job;
- document.getElementById('skillT').innerText=s.skill+'%';
- document.getElementById('bankT').innerText=s.bank.toLocaleString();
- localStorage.setItem('ukv10',JSON.stringify(s));
+ document.getElementById('money').innerText='£'+s.m;
+ document.getElementById('houseName').innerText=s.house;
+ document.getElementById('credit').innerText='Credit: '+s.credit;
+ document.getElementById('visa').innerText=s.visa+' days';
+ document.getElementById('happy').innerText=s.happy+'%';
+ document.getElementById('energy').innerText='£'+s.energy;
+ document.getElementById('council').innerText='£'+s.council;
+ document.getElementById('weather').innerText=weather[wIdx];
+ localStorage.setItem('uklife_original',JSON.stringify(s));
 }
-function work(){s.m+=s.pay;if(s.biz!='None')s.m+=50000;document.getElementById('char').style.left=Math.random()*60+15+'%';render();}
+function work(){
+ let bonus = s.happy>70? 20:0;
+ if(weather[wIdx]=='🌧️ Rainy') bonus-=5;
+ s.m+=s.pay+bonus;
+ s.happy=Math.max(10,Math.min(100,s.happy-2));
+ s.credit=Math.min(999,s.credit+1);
+ if(Math.random()>0.8){ s.visa--; }
+ render();
+ if(s.m<0) alert('You are broke! UK is hard!');
+}
+function study(){
+ if(s.m<50){alert('NVQ costs £50');return;}
+ s.m-=50; s.skill+=8; s.credit+=5;
+ if(s.skill>20 && s.job=='Cleaner'){s.job='Delivery Rider';s.pay=70;alert('New job: Delivery Rider! 🚴');}
+ if(s.skill>50 && s.job=='Delivery Rider'){s.job='Support Worker';s.pay=150;alert('New job: NHS Support Worker!');}
+ if(s.skill>80){s.job='Software Engineer';s.pay=400;alert('New job: Software Engineer in Canary Wharf! 💻');}
+ render();
+}
+function payBills(){
+ let total=s.rent+s.energy+s.council;
+ if(s.m>=total){s.m-=total;s.happy+=10;s.credit+=10;alert('Bills paid! Landlord happy');}
+ else alert('Not enough! Need £'+total);
+ render();
+}
+function travel(){
+ if(s.m>=3){s.m-=3.2; s.happy+=2; alert('Oyster tapped! Off to Central London'); render();}
+}
+setInterval(()=>{wIdx=(wIdx+1)%weather.length; document.getElementById('weather').innerText=weather[wIdx]; if(weather[wIdx]=='🌧️ Rainy') s.happy-=1; render();},8000);
+setInterval(()=>{ // random UK event
+ const events=["Tube strike! No work today","Energy cap up! Bills +£20","Home Office letter: BRP renewal £500","Won £100 on football bet!","Landlord inspection!","Cold snap! Heating cost +£30"];
+ document.getElementById('event').innerText=events[Math.floor(Math.random()*events.length)];
+},12000);
+
 function openM(type){
- const box=document.getElementById('box');let h='';
- if(type=='jobs'){h='<h3>Jobs</h3><button onclick="s.skill+=7;s.m-=10000;render()" style="width:100%;margin:8px 0;padding:12px;background:#222;color:#fff;border:none;border-radius:12px">📚 Study ₦10k +7%</button>';const jobs=[{n:'Barista',p:5000,sk:0},{n:'Driver',p:15000,sk:20},{n:'Software Dev',p:150000,sk:50},{n:'Doctor',p:500000,sk:80},{n:'CEO',p:1500000,sk:95}];jobs.forEach(j=>{h+=`<div class="job"><div>${j.n}<br><small>₦${j.p}/work | ${j.sk}%</small></div><button onclick="if(s.skill>=${j.sk}){s.job='${j.n}';s.pay=${j.p};render();}">Take</button></div>`});}
- if(type=='houses'){h='<h3>Houses</h3>';[{n:'Bedsit',p:0},{n:'Mushin',p:500000},{n:'Lekki Flat',p:5000000},{n:'Banana Island',p:25000000},{n:'Chelsea UK',p:50000000}].forEach(x=>{h+=`<div class="job"><div>${x.n}<br>₦${x.p.toLocaleString()}</div><button onclick="if(s.m>=${x.p}){s.m-=${x.p};render()}">Buy</button></div>`});}
- if(type=='cars'){h='<h3>Cars</h3>';[{n:'Keke',p:300000},{n:'Toyota',p:3000000},{n:'Range Rover',p:12000000}].forEach(x=>{h+=`<div class="job"><div>${x.n}<br>₦${x.p.toLocaleString()}</div><button onclick="if(s.m>=${x.p}){s.m-=${x.p};render()}">Buy</button></div>`});}
- if(type=='bank'){h=`<h3>Bank 5% interest</h3><p>₦${s.bank.toLocaleString()}</p><input id="dep" type="number" placeholder="Amount" style="width:100%;padding:12px;margin:10px 0;border-radius:12px;border:1px solid #ccc"><button onclick="let v=+document.getElementById('dep').value;if(s.m>=v){s.m-=v;s.bank+=v;render();}" style="width:48%;padding:12px;background:#00c853;color:#fff;border:none;border-radius:12px">Deposit</button><button onclick="let v=+document.getElementById('dep').value;if(s.bank>=v){s.bank-=v;s.m+=v;render();}" style="width:48%;padding:12px;background:#222;color:#fff;border:none;border-radius:12px">Withdraw</button><button onclick="s.bank=Math.floor(s.bank*1.05);render()" style="width:100%;margin-top:10px;padding:12px;background:gold;border:none;border-radius:12px;font-weight:800">Collect Interest</button>`}
- if(type=='map'){h='<h3>Transport</h3><div class="job"><div>Oshodi</div><button onclick="if(s.m>=500){s.m-=500;render()}">₦500</button></div><div class="job"><div>Lekki</div><button onclick="if(s.m>=1000){s.m-=1000;render()}">₦1000</button></div><div class="job"><div>Banana Island</div><button onclick="if(s.m>=2000){s.m-=2000;render()}">₦2000</button></div>'}
- if(type=='social'){h='<h3>Social + Business</h3><div class="job"><div>Shop Business ₦5M → ₦50k/WORK</div><button onclick="if(s.m>=5000000){s.m-=5000000;s.biz=\'Shop\';render();}">Buy</button></div><div class="job"><div>Club ₦20M → ₦200k/WORK</div><button onclick="if(s.m>=20000000){s.m-=20000000;s.biz=\'Club\';s.pay+=200000;render();}">Buy</button></div>'}
- if(type=='build'){h='<h3>Catalogue - Buy Mode</h3><p>Like your screenshot</p>';[{n:'Bed Upgrade',p:150000},{n:'Sofa Set',p:250000},{n:'TV 55',p:180000},{n:'Washing Machine',p:120000},{n:'Fridge',p:200000}].forEach(f=>{h+=`<div class="job"><div>${f.n}<br>₦${f.p.toLocaleString()}</div><button onclick="if(s.m>=${f.p}){s.m-=${f.p};render();alert('Placed!')}">Buy</button></div>`});}
- h+='<br><button onclick="closeM()" style="width:100%;padding:14px;background:#111;color:#fff;border:none;border-radius:12px">Close</button>';box.innerHTML=h;document.getElementById('modal').classList.add('open');
+ const box=document.getElementById('box'); let h='';
+ if(type=='jobs'){
+  h='<h3>UK Jobs Ladder</h3>';
+  [{n:'Cleaner',p:40,sk:0},{n:'Delivery Rider',p:70,sk:20},{n:'Warehouse',p:100,sk:30},{n:'Support Worker (NHS)',p:150,sk:50},{n:'Software Engineer',p:400,sk:80},{n:'Trader - City',p:900,sk:95}].forEach(j=>{
+   h+=`<div class="item"><div>${j.n}<br><small>£${j.p}/shift | Need ${j.sk}% skill</small></div><button onclick="if(s.skill>=${j.sk}){s.job='${j.n}';s.pay=${j.p};render();alert('Now ${j.n}')}">Take</button></div>`;
+  });
+ }
+ if(type=='homes'){
+  h='<h3>UK Housing Ladder - Peckham to Mayfair</h3>';
+  [{n:'Shared Room - Peckham',p:400,e:120,c:80},{n:'Studio - Croydon',p:750,e:150,c:120},{n:'1 Bed - Stratford',p:1200,e:180,c:150},{n:'Victorian Terrace - Clapham',p:2500,e:220,c:200},{n:'Chelsea Townhouse',p:5000,e:350,c:400}].forEach(x=>{
+   h+=`<div class="item"><div>${x.n}<br><small>Rent £${x.p} + Energy £${x.e} + Council £${x.c}</small></div><button onclick="if(s.credit>=${x.p/2}){s.house='${x.n}';s.rent=${x.p};s.energy=${x.e};s.council=${x.c};render();}else alert('Need better credit!')">Move</button></div>`;
+  });
+ }
+ if(type=='shop'){
+  h='<h3>Fish & Chips + Tesco</h3><p>Food affects happiness</p>';
+  [{n:'Meal Deal Tesco £3.40',p:3.4,h:5},{n:'Fish & Chips £9',p:9,h:12},{n:'Nando\'s £15',p:15,h:18},{n:'Weekly Shop Aldi £40',p:40,h:25}].forEach(f=>{
+   h+=`<div class="item"><div>${f.n}<br>+${f.h}% happy</div><button onclick="if(s.m>=${f.p}){s.m-=${f.p};s.happy=Math.min(100,s.happy+${f.h});render();}">Buy</button></div>`;
+  });
+ }
+ if(type=='pub'){
+  h='<h3>The Pub - Social</h3>';
+  h+=`<div class="item"><div>Pint + Pub Quiz<br><small>£8 | +10% happy | Meet people</small></div><button onclick="if(s.m>=8){s.m-=8;s.happy+=10;render();alert('You met someone from Manchester!')}">Go</button></div>`;
+  h+=`<div class="item"><div>Football Bet<br><small>£20 bet - win £100 (30% chance)</small></div><button onclick="if(s.m>=20){s.m-=20;if(Math.random()>0.7){s.m+=100;alert('Won! Arsenal won!')}else alert('Lost!');render();}">Bet £20</button></div>`;
+ }
+ if(type=='bank'){
+  h=`<h3>Monzo Bank - Credit Score</h3><p>Credit: ${s.credit}/999</p><p>Score up by working + paying bills on time</p><p style="margin:8px 0">High score = cheaper rent + better house</p><button onclick="s.credit=Math.min(999,s.credit+10);s.m+=200;render();alert('Payday loan! But credit -20');s.credit-=30;render()" style="width:100%;padding:12px;background:#ff1744;color:#fff;border:none;border-radius:12px">Quick Loan £200 (Bad for credit)</button>`;
+ }
+ if(type=='brp'){
+  h=`<h3>BRP / Visa - Home Office</h3><p>Days left: ${s.visa}</p><p>If 0 days = Game Over + Deported!</p><div class="item"><div>Renew BRP<br>£500 | +60 days</div><button onclick="if(s.m>=500){s.m-=500;s.visa+=60;render();alert('BRP renewed!')}">Renew</button></div><div class="item"><div>Indefinite Leave to Remain<br>Need credit 800 + £3000 + skill 90%</div><button onclick="if(s.credit>=800 && s.m>=3000 && s.skill>=90){alert('CONGRATS! You got ILR! You WIN UK LIFE! 🇬🇧');s.m+=100000;}else alert('Need 800 credit, £3000, 90% skill')">Apply ILR</button></div>`;
+ }
+ h+='<br><button onclick="closeM()" style="width:100%;padding:14px;background:#111;color:#fff;border:none;border-radius:12px">Close</button>';
+ box.innerHTML=h; document.getElementById('modal').classList.add('open');
 }
 function closeM(){document.getElementById('modal').classList.remove('open')}
 render();
